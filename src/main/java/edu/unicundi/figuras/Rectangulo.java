@@ -12,6 +12,7 @@ package edu.unicundi.figuras;
  */
 public class Rectangulo extends FigurasGeometricas {
 
+
     private short lado4;
 
     public Rectangulo(short lado1, short lado2, short lado3) {
@@ -26,6 +27,7 @@ public class Rectangulo extends FigurasGeometricas {
         this.lado4 = lado4;
     }
     
+
     @Override
     public float hallarArea() {
         return 0;

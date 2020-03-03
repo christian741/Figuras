@@ -12,6 +12,7 @@ package edu.unicundi.figuras;
  */
 public class Cuadrado extends FigurasGeometricas{
 
+
     private short lado4;
 
     public Cuadrado(short lado1, short lado2, short lado3) {
@@ -27,6 +28,7 @@ public class Cuadrado extends FigurasGeometricas{
         this.lado4 = lado4;
     }
     
+
     @Override
     public float hallarArea() {
         return 0;
