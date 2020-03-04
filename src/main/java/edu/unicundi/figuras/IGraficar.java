@@ -7,13 +7,8 @@ package edu.unicundi.figuras;
 
 /**
  *
- * @author Christian Diaz
- * @author Cristian Medina
+ * @author ASUS
  */
-public interface IOperacionesFiguras {
-    
-    public float hallarArea();
-    public float hallarPerimetro();
-    public float cambiarColor();
+public interface IGraficar {
     
 }

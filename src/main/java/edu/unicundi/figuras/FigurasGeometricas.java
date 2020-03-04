@@ -12,9 +12,9 @@ package edu.unicundi.figuras;
  */
 public abstract class FigurasGeometricas implements IOperacionesFiguras{
     
-    private short lado1;
-    private short lado2;
-    private short lado3;
+    public short lado1;
+    public short lado2;
+    public short lado3;
     
     private short area;
     private short perimetro;

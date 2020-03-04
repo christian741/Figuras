@@ -14,15 +14,30 @@ public class Cuadrado extends FigurasGeometricas{
 
 
     private short lado4;
+    
+    /**
+     * 
+     * @param lado1
+     * @param lado2
+     * @param lado3 
+     */
 
     public Cuadrado(short lado1, short lado2, short lado3) {
         super(lado1, lado2, lado3);
     }
 
+    /**
+     * 
+     * @return 
+     */
 
     public short getLado4() {
         return lado4;
     }
+    /**
+     * 
+     * @param lado4 
+     */
 
     public void setLado4(short lado4) {
         this.lado4 = lado4;
@@ -31,18 +46,24 @@ public class Cuadrado extends FigurasGeometricas{
 
     @Override
     public float hallarArea() {
+        short area= (short) (lado1*lado2);
+        setArea(area);
+        System.out.println("El area del cuadrado es:"+getArea());
         return 0;
        
     }
 
     @Override
     public float hallarPerimetro() {
+        short perimetro = (short) (lado1*2 + lado2*2);
+        setPerimetro(perimetro);
+        System.out.println("El perimetro del cuadrado es:"+getPerimetro());
         return 0;
       
     }
 
-    @Override
-    public void cambiarColor() {
+    public float cambiarColor() {
+        return 0;
         
     }
   

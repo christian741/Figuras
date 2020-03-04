@@ -39,8 +39,11 @@ public class Rectangulo extends FigurasGeometricas {
     }
 
     @Override
-    public void cambiarColor() {
+    public float cambiarColor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    
    
    
 }
