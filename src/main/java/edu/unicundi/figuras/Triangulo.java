@@ -19,20 +19,27 @@ public class Triangulo extends FigurasGeometricas{
         super(coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2, coordenadaX3, coordenadaY3);
     }
 
-    public Triangulo(short lado1, short lado2, short lado3) {
+    public Triangulo(int lado1, int lado2, int lado3) {
         super(lado1, lado2, lado3);
     }
 
  
 
     @Override
-    public short hallarArea() {
-        return 0;
+    public int hallarArea() {
+        int area =  (getLado1() * getLado2() / 2);
+        setPerimetro(area);
+        System.out.println("El area del triangulo es:" + getArea());
+        return area;
     }
 
     @Override
-    public short hallarPerimetro() {
-        return 0;
+    public int hallarPerimetro() {
+        int perimetro=  (getLado1()+getLado2()+getLado3());
+        setPerimetro(perimetro);
+        System.out.println("El perimetro del triangulo es:"+getPerimetro());
+    
+        return perimetro;  
     }
 
     @Override

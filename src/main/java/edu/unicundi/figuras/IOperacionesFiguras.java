@@ -12,8 +12,8 @@ package edu.unicundi.figuras;
  */
 public interface IOperacionesFiguras {
     
-    public short hallarArea();
-    public short hallarPerimetro();
+    public int hallarArea();
+    public int hallarPerimetro();
     public void cambiarColor();
     
 }

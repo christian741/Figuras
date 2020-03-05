@@ -13,7 +13,7 @@ package edu.unicundi.figuras;
 public class Rectangulo extends FigurasGeometricas {
 
 
-    private short lado4;
+    private int lado4;
     
     private short coordenadaX4;
     private short coordenadaY4;
@@ -22,7 +22,7 @@ public class Rectangulo extends FigurasGeometricas {
       
     }
 
-    public Rectangulo(short lado1, short lado2, short lado3) {
+    public Rectangulo(int lado1, int lado2, int lado3) {
         super(lado1, lado2, lado3);
     }
 
@@ -49,23 +49,29 @@ public class Rectangulo extends FigurasGeometricas {
     }
   
 
-    public short getLado4() {
+    public int getLado4() {
         return lado4;
     }
 
-    public void setLado4(short lado4) {
+    public void setLado4(int lado4) {
         this.lado4 = lado4;
     }
     
 
     @Override
-    public short hallarArea() {
-        return 0;
+    public int hallarArea() {
+        int area = (getLado1() * getLado2());
+        setArea(area);
+        System.out.println("El area del rectangulo es:"+getArea());
+        return area;
     }
 
     @Override
-    public short hallarPerimetro() {
-        return 0;
+    public int hallarPerimetro() {
+        int perimetro = (this.getLado1() * 2 + this.getLado2() * 2);
+        setPerimetro(perimetro);
+        System.out.println("El perimetro del rectangulo es:" + getPerimetro());
+        return perimetro;
     }
 
     @Override

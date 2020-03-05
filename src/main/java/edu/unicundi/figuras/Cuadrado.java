@@ -12,7 +12,7 @@ package edu.unicundi.figuras;
  */
 public class Cuadrado extends FigurasGeometricas{
 
-    private short lado4;
+    private int lado4;
     private short coordenadaX4;
     private short coordenadaY4;
 
@@ -20,7 +20,7 @@ public class Cuadrado extends FigurasGeometricas{
     public Cuadrado() {
     }
     
-    public Cuadrado(short lado1, short lado2, short lado3) {
+    public Cuadrado(int lado1, int lado2, int lado3) {
         super(lado1, lado2, lado3);
     }
     
@@ -50,7 +50,7 @@ public class Cuadrado extends FigurasGeometricas{
      * @return 
      */
 
-    public short getLado4() {
+    public int getLado4() {
         return lado4;
     }
     /**
@@ -58,14 +58,14 @@ public class Cuadrado extends FigurasGeometricas{
      * @param lado4 
      */
 
-    public void setLado4(short lado4) {
+    public void setLado4(int lado4) {
         this.lado4 = lado4;
     }
     
 
     @Override
-    public short hallarArea() {
-        short area= (short) (this.getLado1()*this.getLado2());
+    public int hallarArea() {
+        int area=(this.getLado1()*this.getLado2());
         setArea(area);
         System.out.println("El area del cuadrado es:"+getArea());
         return area;
@@ -73,8 +73,8 @@ public class Cuadrado extends FigurasGeometricas{
     }
 
     @Override
-    public short hallarPerimetro() {
-        short perimetro = (short) (this.getLado1()*2 + this.getLado2()*2);
+    public int hallarPerimetro() {
+        int perimetro = (this.getLado1()*2 + this.getLado2()*2);
         setPerimetro(perimetro);
         System.out.println("El perimetro del cuadrado es:"+getPerimetro());
         return perimetro;

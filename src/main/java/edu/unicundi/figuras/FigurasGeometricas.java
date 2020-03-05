@@ -11,10 +11,11 @@ package edu.unicundi.figuras;
  * @author Cristian Medina
  */
 public abstract class FigurasGeometricas implements IOperacionesFiguras,IGraficar{
+
     
-    private short lado1;
-    private short lado2;
-    private short lado3;
+    private int lado1;
+    private int lado2;
+    private int lado3;
 
     private short coordenadaX1;
     private short coordenadaY1;
@@ -24,18 +25,20 @@ public abstract class FigurasGeometricas implements IOperacionesFiguras,IGrafica
     private short coordenadaY3;
 
     
-    private short area;
-    private short perimetro;
+    private int area;
+    private int perimetro;
      
     public FigurasGeometricas() {
      
     }
-    
-     public FigurasGeometricas(short lado1, short lado2, short lado3) {
+
+    public FigurasGeometricas(int lado1, int lado2, int lado3) {
         this.lado1 = lado1;
         this.lado2 = lado2;
         this.lado3 = lado3;
     }
+    
+     
 
      public FigurasGeometricas(short coordenadaX1, short coordenadaY1, short coordenadaX2, short coordenadaY2, short coordenadaX3, short coordenadaY3) {
         this.coordenadaX1 = coordenadaX1;
@@ -95,44 +98,47 @@ public abstract class FigurasGeometricas implements IOperacionesFiguras,IGrafica
         this.coordenadaY3 = coordenadaY3;
     }
   
-    public short getLado1() {
-        return lado1;
-    }
+  
 
-    public void setLado1(short lado1) {
-        this.lado1 = lado1;
-    }
-
-    public short getLado2() {
-        return lado2;
-    }
-
-    public void setLado2(short lado2) {
-        this.lado2 = lado2;
-    }
-     public short getLado3() {
-        return lado3;
-    }
-
-    public void setLado3(short lado3) {
-        this.lado3 = lado3;
-    }
-
-
-    public short getArea() {
+    public int getArea() {
         return area;
     }
 
-    public void setArea(short area) {
+    public void setArea(int area) {
         this.area = area;
     }
 
-    public short getPerimetro() {
+    public int getPerimetro() {
         return perimetro;
     }
 
-    public void setPerimetro(short perimetro) {
+    public void setPerimetro(int perimetro) {
         this.perimetro = perimetro;
+    }
+    
+    
+    public int getLado1() {
+        return lado1;
+    }
+
+    public void setLado1(int lado1) {
+        this.lado1 = lado1;
+    }
+
+    public int getLado2() {
+        return lado2;
+    }
+
+    public void setLado2(int lado2) {
+        this.lado2 = lado2;
+    }
+
+    public int getLado3() {
+        return lado3;
+    }
+
+    public void setLado3(int lado3) {
+        this.lado3 = lado3;
     }
     
     

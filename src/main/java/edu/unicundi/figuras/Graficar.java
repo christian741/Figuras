@@ -1,9 +1,12 @@
 
 package edu.unicundi.figuras;
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import sun.security.timestamp.TSResponse;
@@ -13,9 +16,10 @@ import sun.security.timestamp.TSResponse;
  */
 public class Graficar extends javax.swing.JFrame {
 
-    private IOperacionesFiguras cuadrado ;
+    private IOperacionesFiguras cuadrado;
     private IOperacionesFiguras rectangulo;
     private IOperacionesFiguras triangulo;
+    private List<FigurasGeometricas> listFiguras;
     
        
     public class Dibujo2D extends JPanel {
@@ -28,13 +32,16 @@ public class Graficar extends javax.swing.JFrame {
         public void paintComponent(Graphics g) {
             int[] valores = new int[8];
             valores = obtenerValores();
-            obtenerLados(valores);
+            boolean hacer =obtenerLados(valores);
             //g.drawLine(y1, x1, x2, y2);
+            if(hacer!=false){
             String categoria = (String) jcomFiguras.getSelectedItem();
             if (categoria.equals("Triangulo")) {
                 g.drawLine(valores[0], valores[1], valores[2], valores[3]);
                 g.drawLine(valores[2], valores[3], valores[4], valores[5]);
                 g.drawLine(valores[4], valores[5], valores[0], valores[1]);
+                
+               
                
             } else {
                 g.drawLine(valores[0], valores[1], valores[2], valores[3]);
@@ -43,119 +50,142 @@ public class Graficar extends javax.swing.JFrame {
                 g.drawLine(valores[6], valores[7], valores[0], valores[1]);
                
 
-            }
+            }}
 
         }
     }
 
-    private void obtenerLados(int [] arrayEnteros) {
-        
-        boolean validacion =false;
+     private boolean obtenerLados(int[] arrayEnteros) {
+
+        boolean validacion = false;
         String categoria = (String) jcomFiguras.getSelectedItem();
-        short lado1, lado2, lado3, lado4;
+        int lado1, lado2, lado3, lado4;
         if (categoria.equals("Triangulo")) {
-             //lado1 = (x1 - y1) + (y2 - x2)
-            lado1 = (short) ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]));
+            //lado1 = (x1 - y1) + (y2 - x2)
+            lado1 = ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]));
             if (lado1 < 0) {
-                lado1 = (short) ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]) * -1);
+                lado1 = (lado1 * -1);
             }
             // lado2 = (x2 - y2) + (y3 - x3
-            lado2 = (short) ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4]));
+            lado2 = ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4]));
             if (lado2 < 0) {
-                lado2 = (short) ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4])*-1);
+                lado2 = (lado2 * -1);
             }
             // lado3 = (x3 - y3) + (y4 - x4
-            lado3 = (short) ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6]));
+            lado3 = ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6]));
             if (lado3 < 0) {
-                lado3 = (short) ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6])*-1);
+                lado3 = (lado3 * -1);
             }
-           triangulo = new Triangulo(lado1, lado2, lado3);
-            byte tipo = ((Triangulo)triangulo).verificarTriangulo((Triangulo)triangulo);
-            if(tipo==1){
-               //JOptionPane.showMessageDialog(null, "Es un Triangulo Equilatero", "Error", JOptionPane.INFORMATION_MESSAGE);
-               validacion=true;
-           }
-            if(tipo==2){
-               //JOptionPane.showMessageDialog(null, "Es un Triangulo Isoceles", "Error", JOptionPane.INFORMATION_MESSAGE);
-               validacion=true;
-           }
-            if(tipo==3){
-               //JOptionPane.showMessageDialog(null, "Es un Triangulo Escaleno", "Error", JOptionPane.INFORMATION_MESSAGE);
-               validacion=true;
-           }
-           // validacion=true;
+            triangulo = new Triangulo(lado1, lado2, lado3);
+            byte tipo = ((Triangulo) triangulo).verificarTriangulo((Triangulo) triangulo);
+            if (tipo == 1) {
+                //JOptionPane.showMessageDialog(null, "Es un Triangulo Equilatero", "Error", JOptionPane.INFORMATION_MESSAGE);
+                validacion = true;
+            }
+            if (tipo == 2) {
+                //JOptionPane.showMessageDialog(null, "Es un Triangulo Isoceles", "Error", JOptionPane.INFORMATION_MESSAGE);
+                validacion = true;
+            }
+            if (tipo == 3) {
+                //JOptionPane.showMessageDialog(null, "Es un Triangulo Escaleno", "Error", JOptionPane.INFORMATION_MESSAGE);
+                validacion = true;
+            }
+            // validacion=true;
         } else {
             //lado1 = (x1 - y1) + (y2 - x2)
-            lado1 = (short) ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]));
+            lado1 = ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]));
             if (lado1 < 0) {
-                lado1 = (short) ((arrayEnteros[0] - arrayEnteros[1]) + (arrayEnteros[3] - arrayEnteros[2]) * -1);
+                lado1 = (lado1 * -1);
             }
             // lado2 = (x2 - y2) + (y3 - x3
-            lado2 = (short) ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4]));
+            lado2 = ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4]));
             if (lado2 < 0) {
-                lado2 = (short) ((arrayEnteros[2] - arrayEnteros[3]) + (arrayEnteros[5] - arrayEnteros[4])*-1);
+                lado2 = (lado2 * -1);;
             }
             // lado3 = (x3 - y3) + (y4 - x4
-            lado3 = (short) ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6]));
+            lado3 = ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6]));
             if (lado3 < 0) {
-                lado3 = (short) ((arrayEnteros[4] - arrayEnteros[5]) + (arrayEnteros[7] - arrayEnteros[6])*-1);
+                lado3 = (lado3 * -1);
             }
             // lado3 = (x3 - y3) + (y4 - x4
-            lado4 = (short) ((arrayEnteros[6] - arrayEnteros[7]) + (arrayEnteros[1] - arrayEnteros[0]));
+            lado4 = ((arrayEnteros[6] - arrayEnteros[7]) + (arrayEnteros[1] - arrayEnteros[0]));
             if (lado4 < 0) {
-                lado4 = (short) ((arrayEnteros[6] - arrayEnteros[7]) + (arrayEnteros[1] - arrayEnteros[0])*-1);
+                lado4 = (lado4 * -1);
             }
-            
-        if (categoria.equals("Cuadrado")){
-            cuadrado=new Cuadrado(lado1, lado2, lado3);
-           ((Cuadrado)cuadrado).setLado4(lado4);
-             boolean verdad=((Cuadrado)cuadrado).verificarCuadrado((Cuadrado)cuadrado);
-            if(verdad==true){
-                //JOptionPane.showMessageDialog(null, "Es un Cuadrado", "Bien", JOptionPane.INFORMATION_MESSAGE);
-           }else{
-                //JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
-                 validacion=false;
-            }
-        }
-        if (categoria.equals("Rectangulo")){
-           
-           rectangulo=new Rectangulo(lado1, lado2, lado3);
-           ((Rectangulo)rectangulo).setLado4(lado4);
-           boolean verdad= ((Rectangulo)rectangulo).verificarRectangulo((Rectangulo)rectangulo);
-           if(verdad==true){
-               //JOptionPane.showMessageDialog(null, "Es un rectangulo", "Error", JOptionPane.INFORMATION_MESSAGE);
-               validacion=true;
-           }else{
-                 //JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
-                validacion=false;
-            }
-        }
-            
 
-        System.out.println(lado1);
-        System.out.println(lado2);
-        System.out.println(lado3);
-        System.out.println(lado4);
-        
-            aplicarHerencia(lado1, lado2, lado3);
-        
-        }
+            if (categoria.equals("Cuadrado")) {
+                cuadrado = new Cuadrado(lado1, lado2, lado3);
+                ((Cuadrado) cuadrado).setLado4(lado4);
+                boolean verdad = ((Cuadrado) cuadrado).verificarCuadrado((Cuadrado) cuadrado);
+                if (verdad == true) {
+                    validacion = true;
+                    JOptionPane.showMessageDialog(null, "Es un Cuadrado", "Bien", JOptionPane.INFORMATION_MESSAGE);
+                    this.panPlano.repaint();
+                } else {
+                    JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    this.panPlano.repaint();
+                    validacion = false;
+                }
+            }
+            if (categoria.equals("Rectangulo")) {
 
+                rectangulo = new Rectangulo(lado1, lado2, lado3);
+                ((Rectangulo) rectangulo).setLado4(lado4);
+                boolean verdad = ((Rectangulo) rectangulo).verificarRectangulo((Rectangulo) rectangulo);
+                if (verdad == true) {
+                    JOptionPane.showMessageDialog(null, "Es un rectangulo", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    this.panPlano.repaint();
+                    validacion = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    this.panPlano.repaint();
+                    validacion = false;
+                }
+            }
+            System.out.println(lado1 + "" + lado2 + "" + lado3 + "" + lado4);
+            if (validacion != false) {
+                aplicarHerencia();
+            }
+        }
+        return validacion;
     }
-    private void aplicarHerencia(int lado1,int lado2,int lado3){
+    private void aplicarHerencia(){
         String categoria = (String) jcomFiguras.getSelectedItem();
+        int area=0;
+        int perimetro=0;
        
         if(categoria.equals("Cuadrado")){
-            ((Cuadrado)cuadrado).hallarArea();
-            ((Cuadrado)cuadrado).hallarPerimetro();
+            area=((Cuadrado)cuadrado).hallarArea();
+            perimetro=((Cuadrado)cuadrado).hallarPerimetro();
         }
          if(categoria.equals("Rectangulo")){
-            ((Rectangulo)rectangulo).hallarArea();
-            ((Rectangulo)rectangulo).hallarPerimetro();
+            area=((Rectangulo)rectangulo).hallarArea();
+            perimetro=((Rectangulo)rectangulo).hallarPerimetro();
         }
         if(categoria.equals("Triangulo")){
-            ((Triangulo)triangulo).hallarArea();
-            ((Triangulo)triangulo).hallarPerimetro();
+            area=((Triangulo)triangulo).hallarArea();
+            perimetro=((Triangulo)triangulo).hallarPerimetro();
+        }
+        this.informacionLabels(area, perimetro);
+        
+    }
+    
+    private void informacionLabels(int area, int perimetro) {
+        String categoria = (String) jcomFiguras.getSelectedItem();
+        if (categoria.equals("Cuadrado")) {
+            this.verLabels();
+            this.labelVerArea.setText("Cuadrado :"+area);
+            this.labelVerPer.setText("Cuadrado :"+perimetro);
+        }
+        if (categoria.equals("Rectangulo")) {
+            this.verLabels();
+            this.labelVerArea.setText("Rectangulo :"+area);
+            this.labelVerPer.setText("Rectangulo :"+perimetro);
+        }
+        if (categoria.equals("Triangulo")) {
+             this.verLabels();
+            this.labelVerArea.setText("Triangulo :"+area);
+            this.labelVerPer.setText("Triangulo :"+perimetro);
         }
     }
    
@@ -215,8 +245,38 @@ public class Graficar extends javax.swing.JFrame {
      */
     public Graficar() {
         initComponents();
+        vaciarLabels();
+        this.add(this.panFormulario,BorderLayout.WEST);
+        this.add(this.panTitulo,BorderLayout.NORTH);
+        this.add(this.panPlano,BorderLayout.CENTER);
+        this.add(this.panDerecha,BorderLayout.EAST);
+        this.add(this.panSuelo,BorderLayout.SOUTH);
+        this.panDerecha.setBackground(Color.blue);
+        this.panTitulo.setBackground(Color.BLACK);
+        this.panPlano.setBackground(Color.white);
+        this.panFormulario.setBackground(Color.cyan);
+        this.panSuelo.setBackground(Color.red);
         ocultarCajas();
         
+    }
+    
+     private void verLabels(){
+        this.labelDatos.setVisible(true);
+        this.labelArea.setVisible(true);
+        this.labelPerimetro.setVisible(true);
+         this.labelArea.setVisible(true);
+        this.labelPerimetro.setVisible(true);
+        this.labelVerArea.setVisible(true);
+        this.labelVerPer.setVisible(true);
+    }
+    
+    private void vaciarLabels(){
+        this.labelDatos.setVisible(false);
+        this.labelArea.setVisible(false);
+        this.labelPerimetro.setVisible(false);
+        this.labelVerArea.setVisible(false);
+        this.labelVerPer.setVisible(false);
+       
     }
 
     /**
@@ -229,6 +289,9 @@ public class Graficar extends javax.swing.JFrame {
     private void initComponents() {
 
         jProgressBar1 = new javax.swing.JProgressBar();
+        panTitulo = new javax.swing.JPanel();
+        labelTitulo = new javax.swing.JLabel();
+        panPlano = new javax.swing.JPanel();
         panFormulario = new javax.swing.JPanel();
         labelCordenada1 = new javax.swing.JLabel();
         labelCordenada2 = new javax.swing.JLabel();
@@ -253,11 +316,52 @@ public class Graficar extends javax.swing.JFrame {
         labelX4 = new javax.swing.JLabel();
         labelY4 = new javax.swing.JLabel();
         labelJcombox = new javax.swing.JLabel();
-        panPlano = new javax.swing.JPanel();
-        panTitulo = new javax.swing.JPanel();
-        labelTitulo = new javax.swing.JLabel();
+        panSuelo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        panDerecha = new javax.swing.JPanel();
+        labelArea = new javax.swing.JLabel();
+        labelVerArea = new javax.swing.JLabel();
+        labelPerimetro = new javax.swing.JLabel();
+        labelVerPer = new javax.swing.JLabel();
+        labelDatos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+
+        labelTitulo.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        labelTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        labelTitulo.setText("Figuras Con Herencia");
+
+        javax.swing.GroupLayout panTituloLayout = new javax.swing.GroupLayout(panTitulo);
+        panTitulo.setLayout(panTituloLayout);
+        panTituloLayout.setHorizontalGroup(
+            panTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 844, Short.MAX_VALUE)
+        );
+        panTituloLayout.setVerticalGroup(
+            panTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panTituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(panTitulo, java.awt.BorderLayout.PAGE_END);
+
+        javax.swing.GroupLayout panPlanoLayout = new javax.swing.GroupLayout(panPlano);
+        panPlano.setLayout(panPlanoLayout);
+        panPlanoLayout.setHorizontalGroup(
+            panPlanoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 844, Short.MAX_VALUE)
+        );
+        panPlanoLayout.setVerticalGroup(
+            panPlanoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 567, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(panPlano, java.awt.BorderLayout.PAGE_START);
 
         labelCordenada1.setText("Cordenada 1:");
 
@@ -334,154 +438,190 @@ public class Graficar extends javax.swing.JFrame {
         panFormularioLayout.setHorizontalGroup(
             panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFormularioLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelCordenada4)
-                    .addComponent(labelCordenada3)
-                    .addComponent(labelCordenada2)
-                    .addComponent(labelCordenada1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(148, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormularioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormularioLayout.createSequentialGroup()
-                        .addGap(0, 74, Short.MAX_VALUE)
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(butGraficar))
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(jcomFiguras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelJcombox, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormularioLayout.createSequentialGroup()
-                                .addComponent(jcomFiguras, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFormularioLayout.createSequentialGroup()
+                            .addComponent(labelCordenada1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panFormularioLayout.createSequentialGroup()
                                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(butGraficar)
-                                    .addGroup(panFormularioLayout.createSequentialGroup()
-                                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(labelX1)
-                                            .addComponent(labelY1)
-                                            .addComponent(labelX2)
-                                            .addComponent(labelY2)
-                                            .addComponent(labelX3)
-                                            .addComponent(labelY3)
-                                            .addComponent(labelX4)
-                                            .addComponent(labelY4))
-                                        .addGap(38, 38, 38)
-                                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(textX4, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                                            .addComponent(textY3)
-                                            .addComponent(textX3)
-                                            .addComponent(textY2)
-                                            .addComponent(textX2)
-                                            .addComponent(textY1)
-                                            .addComponent(textX1)
-                                            .addComponent(textY4))))
-                                .addGap(41, 41, 41))))
-                    .addComponent(labelJcombox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(labelCordenada4)
+                                    .addComponent(labelCordenada3)
+                                    .addComponent(labelCordenada2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(labelX1)
+                                    .addComponent(labelY1)
+                                    .addComponent(labelX2)
+                                    .addComponent(labelY2)
+                                    .addComponent(labelX3)
+                                    .addComponent(labelY3)
+                                    .addComponent(labelX4)
+                                    .addComponent(labelY4))
+                                .addGap(38, 38, 38)
+                                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(textX4)
+                                    .addComponent(textY3)
+                                    .addComponent(textX3)
+                                    .addComponent(textY2)
+                                    .addComponent(textX2)
+                                    .addComponent(textY1)
+                                    .addComponent(textX1)
+                                    .addComponent(textY4, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         panFormularioLayout.setVerticalGroup(
             panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFormularioLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addContainerGap()
                 .addComponent(labelJcombox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jcomFiguras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelCordenada1)
-                .addGap(20, 20, 20)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textX1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelX1))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textY1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelY1))
-                .addGap(4, 4, 4)
-                .addComponent(labelCordenada2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textX2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelX2))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textY2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelY2))
-                .addGap(18, 18, 18)
-                .addComponent(labelCordenada3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textX3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelX3))
-                .addGap(18, 18, 18)
-                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panFormularioLayout.createSequentialGroup()
-                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panFormularioLayout.createSequentialGroup()
-                                .addComponent(textY3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
-                                .addComponent(labelCordenada4))
-                            .addComponent(labelY3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textX4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelX4))
-                .addGap(18, 18, 18)
+                .addComponent(labelCordenada1)
                 .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelY4)
-                    .addComponent(textY4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addGap(94, 94, 94)
+                        .addComponent(labelCordenada2)
+                        .addGap(104, 104, 104)
+                        .addComponent(labelCordenada3)
+                        .addGap(113, 113, 113)
+                        .addComponent(labelCordenada4))
+                    .addGroup(panFormularioLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textX1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelX1))
+                        .addGap(18, 18, 18)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textY1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelY1))
+                        .addGap(40, 40, 40)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textX2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelX2))
+                        .addGap(18, 18, 18)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textY2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelY2))
+                        .addGap(47, 47, 47)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textX3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelX3))
+                        .addGap(18, 18, 18)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panFormularioLayout.createSequentialGroup()
+                                .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textY3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelY3))
+                                .addGap(54, 54, 54)
+                                .addComponent(textX4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(labelX4))
+                        .addGap(18, 18, 18)
+                        .addGroup(panFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelY4)
+                            .addComponent(textY4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(25, 25, 25)
                 .addComponent(butGraficar)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout panPlanoLayout = new javax.swing.GroupLayout(panPlano);
-        panPlano.setLayout(panPlanoLayout);
-        panPlanoLayout.setHorizontalGroup(
-            panPlanoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 921, Short.MAX_VALUE)
-        );
-        panPlanoLayout.setVerticalGroup(
-            panPlanoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        labelTitulo.setText("Figuras Con Herencia");
-
-        javax.swing.GroupLayout panTituloLayout = new javax.swing.GroupLayout(panTitulo);
-        panTitulo.setLayout(panTituloLayout);
-        panTituloLayout.setHorizontalGroup(
-            panTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panTituloLayout.createSequentialGroup()
-                .addGap(205, 205, 205)
-                .addComponent(labelTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 592, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
-        );
-        panTituloLayout.setVerticalGroup(
-            panTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panTituloLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panPlano, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panFormulario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panPlano, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+
+        getContentPane().add(panFormulario, java.awt.BorderLayout.LINE_START);
+        getContentPane().add(panFormulario, java.awt.BorderLayout.EAST);
+
+        jLabel2.setText("Presentado por");
+
+        jLabel1.setText("Chrstian David Diaz");
+
+        jLabel3.setText("Cristian Medina");
+
+        javax.swing.GroupLayout panSueloLayout = new javax.swing.GroupLayout(panSuelo);
+        panSuelo.setLayout(panSueloLayout);
+        panSueloLayout.setHorizontalGroup(
+            panSueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panSueloLayout.createSequentialGroup()
+                .addGap(86, 86, 86)
+                .addComponent(jLabel2)
+                .addGap(176, 176, 176)
+                .addComponent(jLabel1)
+                .addGap(180, 180, 180)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        panSueloLayout.setVerticalGroup(
+            panSueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panSueloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panSueloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panSuelo, java.awt.BorderLayout.CENTER);
+
+        labelArea.setText("Area:");
+
+        labelVerArea.setText("jLabel4");
+
+        labelPerimetro.setText("Perimetro:");
+
+        labelVerPer.setText("jLabel4");
+
+        labelDatos.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        labelDatos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDatos.setText("DATOS");
+
+        javax.swing.GroupLayout panDerechaLayout = new javax.swing.GroupLayout(panDerecha);
+        panDerecha.setLayout(panDerechaLayout);
+        panDerechaLayout.setHorizontalGroup(
+            panDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panDerechaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panDerechaLayout.createSequentialGroup()
+                        .addGroup(panDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelArea)
+                            .addComponent(labelPerimetro))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panDerechaLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(panDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelVerArea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelVerPer, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))))
+                .addContainerGap())
+            .addGroup(panDerechaLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(labelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panDerechaLayout.setVerticalGroup(
+            panDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panDerechaLayout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(labelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(labelArea)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelVerArea)
+                .addGap(90, 90, 90)
+                .addComponent(labelPerimetro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelVerPer)
+                .addContainerGap(247, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(panDerecha, java.awt.BorderLayout.LINE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -518,11 +658,12 @@ public class Graficar extends javax.swing.JFrame {
 
     private void dibujar() {
         Dibujo2D dibuj = new Dibujo2D();
-        dibuj.setBounds(50, 100, 1000, 1000);
+        dibuj.setBounds(0, 0,1000 , 1000);
         dibuj.setOpaque(false);
-        panPlano.setBackground(Color.white);
+        dibuj.setBackground(Color.red);
         panPlano.add(dibuj);
         panPlano.repaint();
+       
     }
     /*public void  pintarCuadrado(Graphics g){
       //panPlano.setBackground(Color.white);
@@ -658,14 +799,22 @@ public class Graficar extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butGraficar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JComboBox jcomFiguras;
+    private javax.swing.JLabel labelArea;
     private javax.swing.JLabel labelCordenada1;
     private javax.swing.JLabel labelCordenada2;
     private javax.swing.JLabel labelCordenada3;
     private javax.swing.JLabel labelCordenada4;
+    private javax.swing.JLabel labelDatos;
     private javax.swing.JLabel labelJcombox;
+    private javax.swing.JLabel labelPerimetro;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JLabel labelVerArea;
+    private javax.swing.JLabel labelVerPer;
     private javax.swing.JLabel labelX1;
     private javax.swing.JLabel labelX2;
     private javax.swing.JLabel labelX3;
@@ -674,8 +823,10 @@ public class Graficar extends javax.swing.JFrame {
     private javax.swing.JLabel labelY2;
     private javax.swing.JLabel labelY3;
     private javax.swing.JLabel labelY4;
+    private javax.swing.JPanel panDerecha;
     private javax.swing.JPanel panFormulario;
     private javax.swing.JPanel panPlano;
+    private javax.swing.JPanel panSuelo;
     private javax.swing.JPanel panTitulo;
     private javax.swing.JTextField textX1;
     private javax.swing.JTextField textX2;
