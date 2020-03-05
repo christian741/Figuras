@@ -13,9 +13,9 @@ import sun.security.timestamp.TSResponse;
  */
 public class Graficar extends javax.swing.JFrame {
 
-    private FigurasGeometricas cuadrado ;
-    private FigurasGeometricas rectangulo;
-    private FigurasGeometricas triangulo;
+    private IOperacionesFiguras cuadrado ;
+    private IOperacionesFiguras rectangulo;
+    private IOperacionesFiguras triangulo;
     
        
     public class Dibujo2D extends JPanel {
