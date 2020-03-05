@@ -14,10 +14,36 @@ public class Rectangulo extends FigurasGeometricas {
 
 
     private short lado4;
+    
+    private short coordenadaX4;
+    private short coordenadaY4;
 
     public Rectangulo(short lado1, short lado2, short lado3) {
         super(lado1, lado2, lado3);
     }
+
+    public Rectangulo(short coordenadaX1, short coordenadaY1, short coordenadaX2, short coordenadaY2, short coordenadaX3, short coordenadaY3) {
+        super(coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2, coordenadaX3, coordenadaY3);
+    }
+   
+    
+
+    public short getCoordenadaX4() {
+        return coordenadaX4;
+    }
+
+    public void setCoordenadaX4(short coordenadaX4) {
+        this.coordenadaX4 = coordenadaX4;
+    }
+
+    public short getCoordenadaY4() {
+        return coordenadaY4;
+    }
+
+    public void setCoordenadaY4(short coordenadaY4) {
+        this.coordenadaY4 = coordenadaY4;
+    }
+  
 
     public short getLado4() {
         return lado4;
@@ -39,8 +65,7 @@ public class Rectangulo extends FigurasGeometricas {
     }
 
     @Override
-    public float cambiarColor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void cambiarColor() {
     }
 
     

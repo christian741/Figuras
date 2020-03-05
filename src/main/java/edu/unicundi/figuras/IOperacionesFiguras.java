@@ -14,6 +14,6 @@ public interface IOperacionesFiguras {
     
     public float hallarArea();
     public float hallarPerimetro();
-    public float cambiarColor();
+    public void cambiarColor();
     
 }
