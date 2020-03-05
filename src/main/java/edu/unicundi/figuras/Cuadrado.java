@@ -12,13 +12,14 @@ package edu.unicundi.figuras;
  */
 public class Cuadrado extends FigurasGeometricas{
 
-  
-
-
     private short lado4;
     private short coordenadaX4;
     private short coordenadaY4;
 
+    
+    public Cuadrado() {
+    }
+    
     public Cuadrado(short lado1, short lado2, short lado3) {
         super(lado1, lado2, lado3);
     }
@@ -63,20 +64,20 @@ public class Cuadrado extends FigurasGeometricas{
     
 
     @Override
-    public float hallarArea() {
-        short area= (short) (getLado1()*getLado2());
+    public short hallarArea() {
+        short area= (short) (this.getLado1()*this.getLado2());
         setArea(area);
         System.out.println("El area del cuadrado es:"+getArea());
-        return 0;
+        return area;
        
     }
 
     @Override
-    public float hallarPerimetro() {
-        short perimetro = (short) (getLado1()*2 + getLado2()*2);
+    public short hallarPerimetro() {
+        short perimetro = (short) (this.getLado1()*2 + this.getLado2()*2);
         setPerimetro(perimetro);
         System.out.println("El perimetro del cuadrado es:"+getPerimetro());
-        return 0;
+        return perimetro;
       
     }
     @Override
@@ -85,5 +86,12 @@ public class Cuadrado extends FigurasGeometricas{
         
     }
   
+    public boolean verificarCuadrado(Cuadrado cuadrado){
+        boolean validacion=false;
+        if(cuadrado.getLado1()==cuadrado.getLado2() && cuadrado.getLado1()==cuadrado.getLado3() && cuadrado.getLado1() == cuadrado.getLado4() && cuadrado.getLado2()==cuadrado.getLado3() && cuadrado.getLado2()==cuadrado.getLado4() && cuadrado.getLado3()== cuadrado.getLado4()){
+            validacion=true;
+        }
+        return validacion;
+    }
     
 }

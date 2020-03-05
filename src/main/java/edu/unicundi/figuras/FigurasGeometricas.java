@@ -26,6 +26,10 @@ public abstract class FigurasGeometricas implements IOperacionesFiguras,IGrafica
     
     private short area;
     private short perimetro;
+     
+    public FigurasGeometricas() {
+     
+    }
     
      public FigurasGeometricas(short lado1, short lado2, short lado3) {
         this.lado1 = lado1;

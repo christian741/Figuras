@@ -17,6 +17,10 @@ public class Rectangulo extends FigurasGeometricas {
     
     private short coordenadaX4;
     private short coordenadaY4;
+    
+     public Rectangulo() {
+      
+    }
 
     public Rectangulo(short lado1, short lado2, short lado3) {
         super(lado1, lado2, lado3);
@@ -55,12 +59,12 @@ public class Rectangulo extends FigurasGeometricas {
     
 
     @Override
-    public float hallarArea() {
+    public short hallarArea() {
         return 0;
     }
 
     @Override
-    public float hallarPerimetro() {
+    public short hallarPerimetro() {
         return 0;
     }
 
@@ -68,7 +72,33 @@ public class Rectangulo extends FigurasGeometricas {
     public void cambiarColor() {
     }
 
-    
+     public boolean verificarRectangulo(Rectangulo rectangulo){
+         
+         boolean validacion = false;
+         byte acumulador = 0;
+         if (rectangulo.getLado1() == rectangulo.getLado2());
+         acumulador++;
+         if (rectangulo.getLado1() == rectangulo.getLado3()) {
+             acumulador++;
+         }
+         if (rectangulo.getLado1() == rectangulo.getLado4()) {
+             acumulador++;
+         }
+         if (rectangulo.getLado2() == rectangulo.getLado3()) {
+             acumulador++;
+         }
+         if (rectangulo.getLado2() == rectangulo.getLado4()) {
+             acumulador++;
+         }
+         if(rectangulo.getLado3() == rectangulo.getLado4()){
+             acumulador++;
+         }
+         if(acumulador==2){
+             validacion=true;
+         }
+
+        return validacion;
+    }
    
    
 }

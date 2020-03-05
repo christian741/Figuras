@@ -11,6 +11,9 @@ package edu.unicundi.figuras;
  * @author Cristian Medina
  */
 public class Triangulo extends FigurasGeometricas{
+    
+     public Triangulo() {
+    }
 
     public Triangulo(short coordenadaX1, short coordenadaY1, short coordenadaX2, short coordenadaY2, short coordenadaX3, short coordenadaY3) {
         super(coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2, coordenadaX3, coordenadaY3);
@@ -23,18 +26,35 @@ public class Triangulo extends FigurasGeometricas{
  
 
     @Override
-    public float hallarArea() {
+    public short hallarArea() {
         return 0;
     }
 
     @Override
-    public float hallarPerimetro() {
+    public short hallarPerimetro() {
         return 0;
     }
 
     @Override
     public void cambiarColor() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    
+     public byte verificarTriangulo(Triangulo triangulo){
+        //1= equilatero 2 = isoceles 3=escaleno
+        byte tipo=0;
+        
+        if(triangulo.getLado1()== triangulo.getLado2() && triangulo.getLado1()==triangulo.getLado3() && triangulo.getLado2()==triangulo.getLado3()){
+            tipo =1;
+        }else{
+            if(triangulo.getLado1()== triangulo.getLado2() || triangulo.getLado3()==triangulo.getLado1() && triangulo.getLado2()==triangulo.getLado3()){
+                tipo = 2;
+            }else{
+                tipo=3;
+            }
+        }
+        return tipo;
     }
 
     
