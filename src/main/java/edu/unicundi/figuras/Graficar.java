@@ -1,12 +1,16 @@
 
 package edu.unicundi.figuras;
 import java.awt.BorderLayout;
+import java.awt.Button;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import sun.security.timestamp.TSResponse;
@@ -16,32 +20,68 @@ import sun.security.timestamp.TSResponse;
  */
 public class Graficar extends javax.swing.JFrame {
 
-    private IOperacionesFiguras cuadrado;
-    private IOperacionesFiguras rectangulo;
-    private IOperacionesFiguras triangulo;
-    private List<FigurasGeometricas> listFiguras;
+    private IOperacionesFiguras cuadrado=  new Cuadrado();
+    private IOperacionesFiguras rectangulo = new Rectangulo();
+    private IOperacionesFiguras triangulo =new Triangulo();
+    private List<FigurasGeometricas> listFiguras = new ArrayList<>();
+   // Dibujo2D dibuj = new Dibujo2D();
+   
     
-       
-    public class Dibujo2D extends JPanel {
-
-        public Dibujo2D() {
-
-        }
-
-        @Override
-        public void paintComponent(Graphics g) {
-            int[] valores = new int[8];
+    private void dibujar(){
+         int[] valores = new int[8];
             valores = obtenerValores();
             boolean hacer =obtenerLados(valores);
             //g.drawLine(y1, x1, x2, y2);
             if(hacer!=false){
             String categoria = (String) jcomFiguras.getSelectedItem();
             if (categoria.equals("Triangulo")) {
+
+              /* g.drawLine(valores[0], valores[1], valores[2], valores[3]);
+                g.drawLine(valores[2], valores[3], valores[4], valores[5]);
+                g.drawLine(valores[4], valores[5], valores[0], valores[1]);*/
+                
+                ((Triangulo)this.triangulo).dibujar(panPlano,panPlano.getGraphics(),valores);
+                //guardarCoordenadas(valores);
+               
+            } else {
+                if (categoria.equals("Cuadrado")) {
+
+                  ((Cuadrado)this.cuadrado).dibujar(panPlano,panPlano.getGraphics(),valores);
+                    //guardarCoordenadas(valores);
+
+                }
+                  if (categoria.equals("Rectangulo")) {
+
+                 ((Rectangulo)this.rectangulo).dibujar(panPlano,panPlano.getGraphics(),valores);
+                    //guardarCoordenadas(valores);
+
+                }
+                 
+               /* g.drawLine(valores[0], valores[1], valores[2], valores[3]);
+                g.drawLine(valores[2], valores[3], valores[4], valores[5]);
+                g.drawLine(valores[4], valores[5], valores[6], valores[7]);
+                g.drawLine(valores[6], valores[7], valores[0], valores[1]);*/
+                //guardarCoordenadas(valores);
+            }}
+            
+    }
+       
+    /*public class Dibujo2D extends JPanel {
+
+      public Dibujo2D() {
+
+        }
+        @Override
+        public void paintComponent(Graphics g) {
+            int[] valores = new int[8];
+            valores = obtenerValores();
+            obtenerLados(valores);
+            //g.drawLine(y1, x1, x2, y2);
+            String categoria = (String) jcomFiguras.getSelectedItem();
+            if (categoria.equals("Triangulo")) {
                 g.drawLine(valores[0], valores[1], valores[2], valores[3]);
                 g.drawLine(valores[2], valores[3], valores[4], valores[5]);
                 g.drawLine(valores[4], valores[5], valores[0], valores[1]);
-                
-               
                
             } else {
                 g.drawLine(valores[0], valores[1], valores[2], valores[3]);
@@ -50,11 +90,46 @@ public class Graficar extends javax.swing.JFrame {
                 g.drawLine(valores[6], valores[7], valores[0], valores[1]);
                
 
-            }}
+            }
 
         }
-    }
+    }*/
+    private void guardarCoordenadas(int [] valores){
+         String categoria = (String) jcomFiguras.getSelectedItem();
+        if (categoria.equals("Triangulo")) {
+            
+          ((FigurasGeometricas)this.triangulo).setCoordenadaX1((short)valores[0]);
+          ((FigurasGeometricas)this.triangulo).setCoordenadaY1((short)valores[1]);
+          ((FigurasGeometricas)this.triangulo).setCoordenadaX2((short)valores[2]);
+          ((FigurasGeometricas)this.triangulo).setCoordenadaY2((short)valores[3]);
+          ((Triangulo)this.triangulo).setCoordenadaX3((short)valores[4]);
+          ((Triangulo)this.triangulo).setCoordenadaY3((short)valores[5]);
+        }
+        if (categoria.equals("Cuadrado")) {
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaX1((short)valores[0]);
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaY1((short)valores[1]);
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaX2((short)valores[2]);
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaY2((short)valores[3]);
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaX3((short)valores[4]);
+          ((FigurasGeometricas)this.cuadrado).setCoordenadaY3((short)valores[5]);
+          ((Cuadrado)this.cuadrado).setCoordenadaX3((short)valores[6]);
+          ((Cuadrado)this.cuadrado).setCoordenadaY3((short)valores[7]);
+        }
+        if (categoria.equals("Rectangulo")) {
 
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaX1((short)valores[0]);
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaY1((short)valores[1]);
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaX2((short)valores[2]);
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaY2((short)valores[3]);
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaX3((short)valores[4]);
+          ((FigurasGeometricas)this.rectangulo).setCoordenadaY3((short)valores[5]);
+           ((Rectangulo)this.rectangulo).setCoordenadaX3((short)valores[6]);
+          ((Rectangulo)this.rectangulo).setCoordenadaY3((short)valores[7]);
+        }
+        
+         
+        
+    }
      private boolean obtenerLados(int[] arrayEnteros) {
 
         boolean validacion = false;
@@ -76,8 +151,10 @@ public class Graficar extends javax.swing.JFrame {
             if (lado3 < 0) {
                 lado3 = (lado3 * -1);
             }
-            triangulo = new Triangulo(lado1, lado2, lado3);
-            byte tipo = ((Triangulo) triangulo).verificarTriangulo((Triangulo) triangulo);
+            ((Triangulo)this.triangulo).setLado1(lado1);
+            ((Triangulo)this.triangulo).setLado2(lado2);
+            ((Triangulo)this.triangulo).setLado3(lado3);
+            byte tipo = ((Triangulo)this.triangulo).verificarTriangulo((Triangulo)this.triangulo);
             if (tipo == 1) {
                 //JOptionPane.showMessageDialog(null, "Es un Triangulo Equilatero", "Error", JOptionPane.INFORMATION_MESSAGE);
                 validacion = true;
@@ -114,62 +191,96 @@ public class Graficar extends javax.swing.JFrame {
             }
 
             if (categoria.equals("Cuadrado")) {
-                cuadrado = new Cuadrado(lado1, lado2, lado3);
+               ((Cuadrado) cuadrado).setLado1(lado1);
+                ((Cuadrado) cuadrado).setLado2(lado2);
+                ((Cuadrado) cuadrado).setLado3(lado3);
                 ((Cuadrado) cuadrado).setLado4(lado4);
                 boolean verdad = ((Cuadrado) cuadrado).verificarCuadrado((Cuadrado) cuadrado);
                 if (verdad == true) {
                     validacion = true;
-                    JOptionPane.showMessageDialog(null, "Es un Cuadrado", "Bien", JOptionPane.INFORMATION_MESSAGE);
-                    this.panPlano.repaint();
+                    //JOptionPane.showMessageDialog(null, "Es un Cuadrado", "Bien", JOptionPane.INFORMATION_MESSAGE);
+                    //this.panPlano.repaint();
                 } else {
-                    JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
-                    this.panPlano.repaint();
+                    //JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    //this.panPlano.repaint();
                     validacion = false;
                 }
             }
             if (categoria.equals("Rectangulo")) {
-
-                rectangulo = new Rectangulo(lado1, lado2, lado3);
+                ((Rectangulo) rectangulo).setLado1(lado1);
+                ((Rectangulo) rectangulo).setLado2(lado2);
+                ((Rectangulo) rectangulo).setLado3(lado3);
                 ((Rectangulo) rectangulo).setLado4(lado4);
                 boolean verdad = ((Rectangulo) rectangulo).verificarRectangulo((Rectangulo) rectangulo);
-                if (verdad == true) {
-                    JOptionPane.showMessageDialog(null, "Es un rectangulo", "Error", JOptionPane.INFORMATION_MESSAGE);
-                    this.panPlano.repaint();
+                validacion=true;
+               /* if (verdad == true) {
+                    //JOptionPane.showMessageDialog(null, "Es un rectangulo", "Error", JOptionPane.INFORMATION_MESSAGE);
+                    //this.panPlano.repaint();
                     validacion = true;
                 } else {
-                    JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
-                    this.panPlano.repaint();
+                    //JOptionPane.showMessageDialog(null, "No es un Cuadrado", "Error", JOptionPane.ERROR_MESSAGE);
+                    //this.panPlano.repaint();
                     validacion = false;
-                }
+                }*/
             }
-            System.out.println(lado1 + "" + lado2 + "" + lado3 + "" + lado4);
-            if (validacion != false) {
-                aplicarHerencia();
-            }
+            
         }
+  
+         if (validacion != false) {
+             aplicarHerencia();
+         }
         return validacion;
     }
     private void aplicarHerencia(){
         String categoria = (String) jcomFiguras.getSelectedItem();
         int area=0;
         int perimetro=0;
-       
+        System.out.println("entrerererraefae");
         if(categoria.equals("Cuadrado")){
             area=((Cuadrado)cuadrado).hallarArea();
             perimetro=((Cuadrado)cuadrado).hallarPerimetro();
+             this.guardarInformacion(cuadrado);
         }
          if(categoria.equals("Rectangulo")){
             area=((Rectangulo)rectangulo).hallarArea();
             perimetro=((Rectangulo)rectangulo).hallarPerimetro();
+             this.guardarInformacion(rectangulo);
         }
         if(categoria.equals("Triangulo")){
+            System.out.println("teuruerueruer");
             area=((Triangulo)triangulo).hallarArea();
             perimetro=((Triangulo)triangulo).hallarPerimetro();
+             this.guardarInformacion(triangulo);
         }
         this.informacionLabels(area, perimetro);
+        //this.limpiarMemoria();
+       
         
     }
-    
+    private void limpiarMemoria(){
+        cuadrado = null;
+        rectangulo =null;
+        triangulo = null;
+    }
+    private void guardarInformacion(Object obt){
+        listFiguras.add((FigurasGeometricas) obt);
+        
+        for(FigurasGeometricas dato: listFiguras){
+            if(dato instanceof Cuadrado ){
+                 System.out.println(dato.getPerimetro()+"Cuadrado");
+            }
+             if(dato instanceof Triangulo ){
+                 System.out.println(dato.getPerimetro()+"Triangulo");
+            }
+              if(dato instanceof Rectangulo ){
+                 System.out.println(dato.getPerimetro()+"Rectangulo");
+            }
+           
+        }
+        //triangulo = null;
+        //cuadrado = null;
+        //rectangulo = null; 
+    }
     private void informacionLabels(int area, int perimetro) {
         String categoria = (String) jcomFiguras.getSelectedItem();
         if (categoria.equals("Cuadrado")) {
@@ -251,11 +362,11 @@ public class Graficar extends javax.swing.JFrame {
         this.add(this.panPlano,BorderLayout.CENTER);
         this.add(this.panDerecha,BorderLayout.EAST);
         this.add(this.panSuelo,BorderLayout.SOUTH);
-        this.panDerecha.setBackground(Color.blue);
+        this.panDerecha.setBackground(Color.white);
         this.panTitulo.setBackground(Color.BLACK);
         this.panPlano.setBackground(Color.white);
-        this.panFormulario.setBackground(Color.cyan);
-        this.panSuelo.setBackground(Color.red);
+        this.panFormulario.setBackground(Color.GRAY);
+        this.panSuelo.setBackground(Color.gray);
         ocultarCajas();
         
     }
@@ -656,15 +767,15 @@ public class Graficar extends javax.swing.JFrame {
         
     }//GEN-LAST:event_butGraficarActionPerformed
 
-    private void dibujar() {
-        Dibujo2D dibuj = new Dibujo2D();
+   /* private void dibujar() {
+        
         dibuj.setBounds(0, 0,1000 , 1000);
         dibuj.setOpaque(false);
-        dibuj.setBackground(Color.red);
         panPlano.add(dibuj);
         panPlano.repaint();
+        
        
-    }
+    }*/
     /*public void  pintarCuadrado(Graphics g){
       //panPlano.setBackground(Color.white);
       g.drawLine(Integer.parseInt(textX1.getText().toString()),Integer.parseInt(textY1.getText().toString()),Integer.parseInt(textX2.getText().toString()),Integer.parseInt(textY2.getText().toString()));

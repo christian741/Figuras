@@ -5,6 +5,9 @@
  */
 package edu.unicundi.figuras;
 
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Christian Diaz
@@ -42,10 +45,7 @@ public class Triangulo extends FigurasGeometricas{
         return perimetro;  
     }
 
-    @Override
-    public void cambiarColor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+   
     
     
      public byte verificarTriangulo(Triangulo triangulo){
@@ -62,6 +62,15 @@ public class Triangulo extends FigurasGeometricas{
             }
         }
         return tipo;
+    }
+
+    @Override
+    public  void dibujar(JPanel panel, Graphics g, int [] valores) {
+        g.drawLine(valores[0], valores[1], valores[2], valores[3]);
+        g.drawLine(valores[2], valores[3], valores[4], valores[5]);
+        g.drawLine(valores[4], valores[5], valores[0], valores[1]);
+      
+         //return g;
     }
 
     

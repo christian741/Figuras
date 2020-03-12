@@ -5,6 +5,9 @@
  */
 package edu.unicundi.figuras;
 
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Christian Diaz
@@ -14,6 +17,6 @@ public interface IOperacionesFiguras {
     
     public int hallarArea();
     public int hallarPerimetro();
-    public void cambiarColor();
+    public void  dibujar(JPanel panel,Graphics g, int [] valores);
     
 }

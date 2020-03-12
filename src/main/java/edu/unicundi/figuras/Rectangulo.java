@@ -5,6 +5,9 @@
  */
 package edu.unicundi.figuras;
 
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Christian Diaz
@@ -74,10 +77,7 @@ public class Rectangulo extends FigurasGeometricas {
         return perimetro;
     }
 
-    @Override
-    public void cambiarColor() {
-    }
-
+  
      public boolean verificarRectangulo(Rectangulo rectangulo){
          
          boolean validacion = false;
@@ -104,6 +104,16 @@ public class Rectangulo extends FigurasGeometricas {
          }
 
         return validacion;
+    }
+
+    @Override
+    public void dibujar(JPanel panel, Graphics g,int [] valores) {
+        g.drawLine(valores[0], valores[1], valores[2], valores[3]);
+        g.drawLine(valores[2], valores[3], valores[4], valores[5]);
+        g.drawLine(valores[4], valores[5], valores[6], valores[7]);
+        g.drawLine(valores[6], valores[7], valores[0], valores[1]);
+      
+       // return g;
     }
    
    
